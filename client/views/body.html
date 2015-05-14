@@ -5,10 +5,62 @@
 
 <body>
   <div class="full-height">
-    <div>
-      <button id="get-chart">Get Random Chart</button>
-    </div>
-    <div id="chart-container"></div>
-    <div id="trade-history"></div>
+    {{> switcher}}
   </div>
 </body>
+<template name="switcher">
+  {{#if isStats}}
+    {{> stats}}
+  {{else}}
+    {{> main}}
+  {{/if}}
+</template>
+
+<template name="main">
+  <div>
+    <button id="get-chart">Get Random Chart</button>
+    <button id="buy">Buy at open</button>
+    <button id="short">Short at open</button>
+    <button id="next">Wait</button>
+    <button id="close">Close at Close</button>
+    Stop: <input type="text" id="stop" value="{{stop}}" />
+    total/r-based: {{total_gain}}/{{total_using_R}} | avg. length: {{avg_trade_length}} | total trades: {{total_trades}}
+    <button id="show-r">R</button>
+    <button id="help">Help</button>
+    <button id="view-stats">Stats</button>
+  </div>
+  <div id="chart"></div>
+  <div id="trade-history">
+    {{#each trades}}
+    <ul class="{{positive_style this}}">
+      <li>entry: {{entry}} | exit: {{exit}} | net: {{net this }}</li>
+      <li><strong>R: {{r this}}</strong> | percent: {{percent this}} | stop: {{this.stop}}</li>
+      <li>direction: <span class="{{direction}}">{{direction}}</span> | days: {{totalDays}} | {{startDate}}</li>
+    </ul>
+    {{/each}}
+  </div>
+</template>
+
+<template name="stats">
+  <div>
+    <button id="play">Play</button>
+  </div>
+  <table>
+    <tr>
+      <th>Total Wins</th>
+      <th>Total Losses</th>
+      <th>Avg Win</th>
+      <th>Avg Loss</th>
+      <th>Ending Capital (using R = 1%)</th>
+      <th>Expectancy</th>
+    </tr>
+    <tr>
+      <td>{{win_count}}</td>
+      <td>{{loss_count}}</td>
+      <td>{{avg_win}}</td>
+      <td>{{avg_loss}}</td>
+      <td>{{capital}}</td>
+      <td>{{expectancy}}</td>
+    </tr>
+  </table>
+</template>

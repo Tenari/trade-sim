@@ -7,7 +7,7 @@ html, body, .full-height {
 .pull-right {
   float:right;
 }
-#chart-container {
+#chart {
   width: 75%;
   background-color: #fafafa;
   .full-height;
@@ -17,4 +17,28 @@ html, body, .full-height {
   width: 25%;
   .full-height;
   .pull-right;
+  max-height: 100%;
+  overflow-y: auto;
+}
+.up {
+  color: green;
+}
+.down { color: red; }
+.positive { background-color: #DEF5BF; }
+.negative { font-weight: bold; background-color: #E3D3D6; }
+ul {
+  margin: 0;
+  border-bottom: 1px solid black;
+}
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  height: 28px;
+  padding: 2px;
+  font: 12px sans-serif;
+  background: lightsteelblue;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+  display:inline;
 }
